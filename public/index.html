@@ -41,7 +41,7 @@
 			var socket=io.connect("localhost:1338");
 			var i=1;
 			socket.on('numberTotal',function(data){
-					document.getElementById("numberTotal").innerHTML="欢迎您！   您是第"+data+"个访客"
+					document.getElementById("numberTotal").innerHTML="<h3>欢迎您！   您是第"+data+"个访客<h3>"
 				});
 				
 			socket.on('display',function(data){
@@ -85,6 +85,7 @@
 				socket.emit("submitMessage",message);
 				trim();
 				alert('消息发送成功！');
+				location.reload(true);
 			}
 			function trim(){
 				document.getElementById('name').value="";
@@ -109,12 +110,13 @@
 					 <br>
 			
 					<p>
-						<small>Created by <a href="http://www.zhaominghui.me"><em>Minghui</em></a></small>
+						Created by <a href="http://www.zhaominghui.me"><em>Minghui</em></a>
 					</p>
 					<br>
 					<br>
-					<input type="text" id="name" onclick="trim()" value="留下您的姓名吧\(^o^)/~"/>
-					<button id="submit" onclick="return getname()">submit</button>
+					<input type="text" id="name" onclick="trim()" style="width:400px;height:130px" value="留下您的姓名吧\(^o^)/~"/>
+					
+					<button id="submit" onclick="return getname()" style="width:200px;height:130px">submit</button>
 				</section>
 
 				<section data-transtion="concave">
