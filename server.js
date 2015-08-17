@@ -14,9 +14,9 @@ app.get('/',function(req,res){
 app.use(express.static(path.join(__dirname, 'public')));  //设置public文件夹为静态资源文件夹
 server.listen(1338);
 var client=redis.createClient(settings.redis.port);   //建立redis客户端并连接至redis服务器
-var socket=sio.listen(server);  //监听1338端口
+var io=sio.listen(server);  //监听1338端口
 var number=0;
-socket.on('connection',function(socket){
+io.sockets.on('connection',function(socket){
     number=number+1;
     client.get('numberTotal',function(err,response){
         if(err) throw(err);
@@ -64,9 +64,9 @@ socket.on('connection',function(socket){
             console.log("收到消息："+data);
             client.lrange("message",0,-1,function(err,response){
                  if(err) throw(err);
-                  socket.broadcast.emit("display",response);
+                  io.sockets.emit("display",response);
             });
             socket.broadcast.emit("newMessage",data);
-        })
+        });
     });
 });
